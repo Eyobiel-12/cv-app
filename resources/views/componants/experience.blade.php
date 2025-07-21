@@ -1,12 +1,12 @@
 <!-- Experience Section-->
 <section class="container pt-4" id="">
-    <div class="d-flex align-items-center justify-content-between mb-5">
-        <div class="section-title-wrapper">
-            <h2 class="text-gradient fw-bolder mb-0">Werkervaring</h2>
-            <div class="section-divider mt-2"></div>
-        </div>
-        <div class="d-flex gap-2">
-            <!-- Download Button -->
+    <!-- Titel en sectie header -->
+    <div class="text-center mb-5">
+        <h2 class="text-gradient fw-bolder mb-3">Werkervaring</h2>
+        <div class="section-divider mx-auto mb-4"></div>
+        
+        <!-- Download Button - Nu in het midden -->
+        <div class="download-button-container mt-4">
             <button class="btn btn-download px-4 py-3" id="downloadResumeBtn">
                 <div class="btn-download-content">
                     <div class="d-inline-block bi bi-download me-2"></div>
@@ -76,10 +76,6 @@
 
 <style>
     /* Experience Timeline Styling */
-    .section-title-wrapper {
-        position: relative;
-    }
-    
     .section-divider {
         height: 3px;
         width: 60px;
@@ -111,6 +107,12 @@
     }
     
     /* Download Button Styling */
+    .download-button-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+    }
+    
     .btn-download {
         background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-alt) 100%);
         color: #fff;

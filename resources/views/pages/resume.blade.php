@@ -3,12 +3,8 @@
     <div class="container py-5">
         <div class="resume-header text-center mb-5">
             <h1 class="display-4 fw-bold mb-3">Curriculum Vitae</h1>
-            <div class="resume-subtitle text-muted mb-4">Professionele werkervaring en vaardigheden</div>
-            <div class="resume-divider mx-auto mb-4"></div>
-        </div>
-        
-        @include('componants.experience')
-    </div>
+            @include('componants.experience')
+         </div>
 @endsection
 
 <style>

@@ -1,6 +1,8 @@
 <!-- Navigation Ultra Modern -->
 <div class="navbar-brand-left position-absolute top-0 start-0 ps-5 pt-4" style="z-index:10;">
-    <span class="brand-logo fw-bold text-uppercase" style="font-size:2.5rem; letter-spacing:2px; color:#fff;">SERHAT.</span>
+    <a href="{{url('/')}}" class="brand-logo-link">
+        <span class="brand-logo fw-bold text-uppercase">SERHAT.</span>
+    </a>
 </div>
 <nav class="navbar navbar-expand-lg custom-navbar shadow-lg py-3 justify-content-center">
     <div class="container px-4 justify-content-center">
@@ -15,28 +17,6 @@
                 <li class="nav-item"><a class="nav-link nav-link-modern px-4 py-2" href="{{url('/projects')}}">Projects</a></li>
                 <li class="nav-item"><a class="nav-link nav-link-modern px-4 py-2" href="{{url('/contact')}}">Contact</a></li>
                 
-                <!-- Admin Section -->
-                @if(Session::get('admin_logged_in'))
-                    <li class="nav-item dropdown">
-                        <a class="nav-link nav-link-modern px-4 py-2 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            Admin
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ url('/dashboard') }}">Dashboard</a></li>
-                            <li>
-                                <form method="POST" action="{{ route('logout') }}" class="d-inline">
-                                    @csrf
-                                    <button type="submit" class="dropdown-item">Uitloggen</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                @else
-                    <li class="nav-item">
-                        <a class="nav-link nav-link-modern px-4 py-2" href="{{ route('admin.login') }}">Admin</a>
-                    </li>
-                @endif
-                
                 <li class="nav-item">
                     <button id="theme-toggle" class="btn btn-outline-secondary ms-2" style="border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
                         <i id="theme-icon" class="bi bi-moon"></i>
@@ -46,6 +26,44 @@
         </div>
     </div>
 </nav>
+
+<style>
+    .brand-logo-link {
+        text-decoration: none;
+        position: relative;
+        display: inline-block;
+        transition: transform 0.3s ease;
+    }
+    
+    .brand-logo-link:hover {
+        transform: scale(1.05);
+    }
+    
+    .brand-logo {
+        font-size: 2.5rem;
+        letter-spacing: 2px;
+        background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-alt) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    body.darkmode .brand-logo {
+        text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    @media (max-width: 991px) {
+        .navbar-brand-left {
+            padding-left: 1rem !important;
+            padding-top: 1rem !important;
+        }
+        
+        .brand-logo {
+            font-size: 1.8rem;
+        }
+    }
+</style>
+
 <script>
     // Theme toggle logic
     function setTheme(mode) {

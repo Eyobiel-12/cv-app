@@ -29,7 +29,40 @@ class DashboardController extends Controller
         
         $resumeInfo = DB::table('resumes')->first();
         
-        return view('dashboard.index', compact('resumeInfo'));
+        // Haal statistieken op voor het dashboard
+        
+        // CV download statistieken
+        $totalDownloads = DB::table('resume_downloads')->count();
+        $recentDownloads = DB::table('resume_downloads')
+            ->where('created_at', '>=', now()->subDays(30))
+            ->count();
+        $protectedDownloads = DB::table('resume_downloads')
+            ->where('is_protected_download', true)
+            ->count();
+            
+        // Contact berichten
+        $totalContacts = DB::table('contacts')->count();
+        $recentContacts = DB::table('contacts')
+            ->where('created_at', '>=', now()->subDays(30))
+            ->count();
+        $latestContacts = DB::table('contacts')
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get();
+            
+        // Project statistieken
+        $totalProjects = DB::table('projects')->count();
+        
+        return view('dashboard.index', compact(
+            'resumeInfo', 
+            'totalDownloads', 
+            'recentDownloads', 
+            'protectedDownloads',
+            'totalContacts',
+            'recentContacts',
+            'latestContacts',
+            'totalProjects'
+        ));
     }
 
     public function updateResume(Request $request)
@@ -232,5 +265,75 @@ class DashboardController extends Controller
         } catch (\Exception $e) {
             return redirect('/dashboard')->with('error', 'Fout bij verwijderen: ' . $e->getMessage());
         }
+    }
+    
+    // Contact berichten beheer
+    
+    public function contacts()
+    {
+        // Controleer admin login
+        if (!Session::get('admin_logged_in')) {
+            return redirect()->route('admin.login');
+        }
+        
+        $contacts = DB::table('contacts')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+            
+        return view('dashboard.contacts', compact('contacts'));
+    }
+    
+    public function deleteContact($id)
+    {
+        // Controleer admin login
+        if (!Session::get('admin_logged_in')) {
+            return redirect()->route('admin.login');
+        }
+        
+        try {
+            DB::table('contacts')->where('id', $id)->delete();
+            return redirect()->route('dashboard.contacts')->with('success', 'Bericht succesvol verwijderd');
+        } catch (\Exception $e) {
+            return redirect()->route('dashboard.contacts')->with('error', 'Fout bij verwijderen: ' . $e->getMessage());
+        }
+    }
+    
+    // Download statistieken
+    
+    public function downloadStats()
+    {
+        // Controleer admin login
+        if (!Session::get('admin_logged_in')) {
+            return redirect()->route('admin.login');
+        }
+        
+        // Totaal aantal downloads
+        $totalDownloads = DB::table('resume_downloads')->count();
+        
+        // Aantal beveiligde downloads
+        $protectedDownloads = DB::table('resume_downloads')
+            ->where('is_protected_download', true)
+            ->count();
+            
+        // Downloads per dag (laatste 30 dagen)
+        $downloadsPerDay = DB::table('resume_downloads')
+            ->where('created_at', '>=', now()->subDays(30))
+            ->selectRaw('DATE(created_at) as date, COUNT(*) as count')
+            ->groupBy('date')
+            ->orderBy('date', 'asc')
+            ->get();
+            
+        // Recente downloads
+        $recentDownloads = DB::table('resume_downloads')
+            ->orderBy('created_at', 'desc')
+            ->limit(20)
+            ->get();
+            
+        return view('dashboard.download_stats', compact(
+            'totalDownloads',
+            'protectedDownloads',
+            'downloadsPerDay',
+            'recentDownloads'
+        ));
     }
 }

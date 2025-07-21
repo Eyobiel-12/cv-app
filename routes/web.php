@@ -23,21 +23,51 @@ Route::get('/services', function () {
 
 Route::get('/work', function () {
     $projects = DB::table('projects')->take(8)->get();
+    
+    // Haal voor elk project de gekoppelde programmeertalen op
+    foreach ($projects as $project) {
+        $project->languages = DB::table('project_programming_language')
+            ->join('programming_languages', 'project_programming_language.programming_language_id', '=', 'programming_languages.id')
+            ->where('project_programming_language.project_id', $project->id)
+            ->select('programming_languages.*')
+            ->get();
+    }
+    
     return view('pages.work', compact('projects'));
 });
 
 // Admin auth routes - zorg dat deze routes altijd toegankelijk zijn
-Route::get('/admin/login', [AuthController::class, 'showAdminLogin'])->name('admin.login');
-Route::post('/admin/login', [AuthController::class, 'adminLogin'])->name('admin.login.submit');
+Route::get('/admin', [AuthController::class, 'showAdminLogin'])->name('admin.login');
+Route::post('/admin', [AuthController::class, 'adminLogin'])->name('admin.login.submit');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Dashboard routes - geen middleware meer, controle in controller
 Route::prefix('dashboard')->group(function () {
+    // Hoofddashboard
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    
+    // CV beheer
     Route::post('/resume', [DashboardController::class, 'updateResume'])->name('resume.update');
     Route::post('/resume/password', [DashboardController::class, 'updatePassword'])->name('resume.password.update');
     Route::delete('/resume', [DashboardController::class, 'deleteResume'])->name('resume.delete');
     Route::get('/check-password', [DashboardController::class, 'checkPasswordStatus'])->name('resume.password.check');
+    
+    // Download statistieken
+    Route::get('/downloads', [DashboardController::class, 'downloadStats'])->name('dashboard.downloads');
+    
+    // Contact berichten
+    Route::get('/contacts', [DashboardController::class, 'contacts'])->name('dashboard.contacts');
+    Route::delete('/contacts/{id}', [DashboardController::class, 'deleteContact'])->name('dashboard.contacts.delete');
+    
+    // Projecten beheer
+    Route::get('/projects', [ProjectController::class, 'dashboardProjects'])->name('dashboard.projects');
+    Route::post('/projects', [ProjectController::class, 'createProject'])->name('dashboard.projects.create');
+    Route::put('/projects/{id}', [ProjectController::class, 'updateProject'])->name('dashboard.projects.update');
+    Route::delete('/projects/{id}', [ProjectController::class, 'deleteProject'])->name('dashboard.projects.delete');
+    
+    // Programmeertalen beheer
+    Route::post('/programming-languages', [ProjectController::class, 'createProgrammingLanguage'])->name('dashboard.programming-languages.create');
+    Route::delete('/programming-languages/{id}', [ProjectController::class, 'deleteProgrammingLanguage'])->name('dashboard.programming-languages.delete');
 });
 
 //All GET request from DB
@@ -53,6 +83,7 @@ Route::get('/getResumeLink', [ResumeController::class, 'getResumeLink']);
 Route::get('/getSeoProperties', [HomeController::class, 'getSeoProperties']);
 Route::get('/getSocialLinks', [HomeController::class, 'getSocialLinks']);
 Route::get('/getResumeInfo', [ResumeController::class, 'getResumeInfo']);
+Route::get('/getResumeDownloadStats', [ResumeController::class, 'getResumeDownloadStats']);
 
 //All Post Request from DB
 Route::post('/postAaboutDetails', [HomeController::class, 'postAaboutDetails']);

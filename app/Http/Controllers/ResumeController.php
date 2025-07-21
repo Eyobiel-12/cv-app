@@ -157,13 +157,25 @@ function postEducationDetails(Request $request){
         }
 
         // Als het bestand beveiligd is met wachtwoord
+        $isProtectedDownload = false;
         if ($resume->is_protected && $resume->password) {
             $providedPassword = $request->input('password');
             
             if (!$providedPassword || !Hash::check($providedPassword, $resume->password)) {
                 return response()->json(['msg' => 'Incorrect wachtwoord'], 401);
             }
+            
+            $isProtectedDownload = true;
         }
+        
+        // Registreer de download in de statistieken
+        DB::table('resume_downloads')->insert([
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+            'is_protected_download' => $isProtectedDownload,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
 
         // Download het bestand
         $filePath = Storage::disk('public')->path($resume->file_path);
@@ -186,6 +198,41 @@ function postEducationDetails(Request $request){
             'has_password' => !empty($resume->password),
             'file_type' => !empty($resume->file_path) ? pathinfo($resume->file_path, PATHINFO_EXTENSION) : null,
             'upload_date' => $resume->updated_at
+        ]);
+    }
+    
+    function getResumeDownloadStats(Request $request) {
+        // Alleen admin kan statistieken bekijken
+        if (!Session::get('admin_logged_in')) {
+            return response()->json(['msg' => 'Geen toegang'], 403);
+        }
+        
+        // Totaal aantal downloads
+        $totalDownloads = DB::table('resume_downloads')->count();
+        
+        // Aantal beveiligde downloads
+        $protectedDownloads = DB::table('resume_downloads')
+            ->where('is_protected_download', true)
+            ->count();
+            
+        // Recente downloads (laatste 30 dagen)
+        $recentDownloads = DB::table('resume_downloads')
+            ->where('created_at', '>=', now()->subDays(30))
+            ->count();
+            
+        // Downloads per dag (laatste 30 dagen)
+        $downloadsPerDay = DB::table('resume_downloads')
+            ->where('created_at', '>=', now()->subDays(30))
+            ->selectRaw('DATE(created_at) as date, COUNT(*) as count')
+            ->groupBy('date')
+            ->orderBy('date', 'asc')
+            ->get();
+        
+        return response()->json([
+            'total_downloads' => $totalDownloads,
+            'protected_downloads' => $protectedDownloads,
+            'recent_downloads' => $recentDownloads,
+            'downloads_per_day' => $downloadsPerDay
         ]);
     }
 }

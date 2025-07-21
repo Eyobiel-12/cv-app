@@ -8,7 +8,7 @@
     <meta name="author" content="" />
     <title>Serhat Yildirim</title>
     <link rel="icon" type="image/x-icon" href="{{asset('assets/favicon.ico')}}" />
-    <link href="{{asset('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css')}}" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
     <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet" />
     <link href="{{asset('css/style.css')}}" rel="stylesheet" />
     <script src="{{asset('js/axios.min.js')}}"></script>
@@ -52,6 +52,17 @@
                         color var(--transition-speed), 
                         border-color var(--transition-speed),
                         box-shadow var(--transition-speed);
+        }
+        
+        /* Project card hover effect */
+        .project-card {
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(var(--color-primary-rgb), 0.15) !important;
         }
     </style>
 </head>
