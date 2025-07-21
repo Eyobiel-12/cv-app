@@ -2,7 +2,7 @@
 @section('content')
     <div class="container py-5">
         <div class="resume-header text-center mb-5">
-            <h1 class="display-4 fw-bold mb-3">Curriculum Vitae</h1>
+            <h1 class="display-4 fw-bold mb-3">{{ __('messages.cv') }}</h1>
             @include('componants.experience')
          </div>
 @endsection

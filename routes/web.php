@@ -8,6 +8,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 //Route::get('/', function(){
 //   return "<h1> Server connect successfully done!</h1>";
 //};
@@ -101,4 +103,13 @@ Route::post('/postSocialLinks', [HomeController::class, 'postSocialLinks']);
 // Resume file upload and download routes
 Route::post('/uploadResumeFile', [ResumeController::class, 'uploadResumeFile']);
 Route::post('/downloadResume', [ResumeController::class, 'downloadResume']);
+
+Route::post('/lang-switch', function() {
+    $lang = request('lang');
+    if (in_array($lang, ['en', 'nl'])) {
+        Session::put('locale', $lang);
+        App::setLocale($lang);
+    }
+    return back();
+})->name('lang.switch');
 

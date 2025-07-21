@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col-12">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="text-primary fw-bolder">Projecten Beheer</h1>
+            <h1 class="text-primary fw-bolder">{{ __('messages.projects') }} {{ __('messages.manage') }}</h1>
         </div>
 
         <div class="row">
@@ -13,10 +13,10 @@
                     <div class="card-body p-4">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <h3 class="fw-bolder mb-0">
-                                <i class="bi bi-kanban me-2"></i>Projecten
+                                <i class="bi bi-kanban me-2"></i>{{ __('messages.projects') }}
                             </h3>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createProjectModal">
-                                <i class="bi bi-plus-lg me-1"></i>Nieuw Project
+                                <i class="bi bi-plus-lg me-1"></i>{{ __('messages.new_project') }}
                             </button>
                         </div>
                         
@@ -71,13 +71,13 @@
                                                 <td>
                                                     <div class="d-flex">
                                                         <button type="button" class="btn btn-sm btn-outline-secondary me-1" data-bs-toggle="modal" data-bs-target="#editProjectModal{{ $project->id }}">
-                                                            <i class="bi bi-pencil"></i>
+                                                            {{ __('messages.edit') }}
                                                         </button>
                                                         <form method="POST" action="{{ route('dashboard.projects.delete', $project->id) }}" onsubmit="return confirm('Weet je zeker dat je dit project wilt verwijderen?')">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="btn btn-sm btn-outline-danger">
-                                                                <i class="bi bi-trash"></i>
+                                                                {{ __('messages.delete') }}
                                                             </button>
                                                         </form>
                                                     </div>
@@ -88,7 +88,7 @@
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title" id="editProjectModalLabel{{ $project->id }}">
-                                                                        Project Bewerken
+                                                                        {{ __('messages.edit_project') }}
                                                                     </h5>
                                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
@@ -148,8 +148,8 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuleren</button>
-                                                                        <button type="submit" class="btn btn-primary">Opslaan</button>
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('messages.cancel') }}</button>
+                                                                        <button type="submit" class="btn btn-primary">{{ __('messages.save') }}</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -163,7 +163,7 @@
                             </div>
                         @else
                             <div class="alert alert-info">
-                                <i class="bi bi-info-circle me-2"></i>Geen projecten gevonden
+                                <i class="bi bi-info-circle me-2"></i>{{ __('messages.no_projects_found') }}
                             </div>
                         @endif
                     </div>
@@ -176,10 +176,10 @@
                     <div class="card-body p-4">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <h3 class="fw-bolder mb-0">
-                                <i class="bi bi-code-slash me-2"></i>Programmeertalen
+                                <i class="bi bi-code-slash me-2"></i>{{ __('messages.programming_languages') }}
                             </h3>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createLanguageModal">
-                                <i class="bi bi-plus-lg me-1"></i>Nieuwe Taal
+                                <i class="bi bi-plus-lg me-1"></i>{{ __('messages.new_language') }}
                             </button>
                         </div>
                         
@@ -188,9 +188,9 @@
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Naam</th>
-                                            <th>Kleur</th>
-                                            <th>Acties</th>
+                                            <th>{{ __('messages.name') }}</th>
+                                            <th>{{ __('messages.color') }}</th>
+                                            <th>{{ __('messages.actions') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -204,7 +204,7 @@
                                                 </td>
                                                 <td>
                                                     <span class="badge" style="background-color: {{ $language->color_code ?? '#6c757d' }}">
-                                                        {{ $language->color_code ?? 'Geen kleur' }}
+                                                        {{ $language->color_code ?? __('messages.no_color') }}
                                                     </span>
                                                 </td>
                                                 <td>
@@ -223,7 +223,7 @@
                             </div>
                         @else
                             <div class="alert alert-info">
-                                <i class="bi bi-info-circle me-2"></i>Geen programmeertalen gevonden
+                                <i class="bi bi-info-circle me-2"></i>{{ __('messages.no_programming_languages_found') }}
                             </div>
                         @endif
                     </div>
@@ -239,7 +239,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="createProjectModalLabel">
-                    Nieuw Project Toevoegen
+                    {{ __('messages.add_new_project') }}
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -247,23 +247,23 @@
                 @csrf
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="title" class="form-label">Titel</label>
+                        <label for="title" class="form-label">{{ __('messages.title') }}</label>
                         <input type="text" class="form-control" id="title" name="title" required>
                     </div>
                     <div class="mb-3">
-                        <label for="details" class="form-label">Details</label>
+                        <label for="details" class="form-label">{{ __('messages.details') }}</label>
                         <textarea class="form-control" id="details" name="details" rows="4" required></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="previewLink" class="form-label">Preview Link</label>
+                        <label for="previewLink" class="form-label">{{ __('messages.preview_link') }}</label>
                         <input type="url" class="form-control" id="previewLink" name="previewLink">
                     </div>
                     <div class="mb-3">
-                        <label for="thumbnail" class="form-label">Thumbnail</label>
+                        <label for="thumbnail" class="form-label">{{ __('messages.thumbnail') }}</label>
                         <input type="file" class="form-control" id="thumbnail" name="thumbnail" accept="image/*">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Programmeertalen</label>
+                        <label class="form-label">{{ __('messages.programming_languages') }}</label>
                         <div class="row">
                             @foreach($programmingLanguages as $language)
                                 <div class="col-md-4 mb-2">
@@ -284,8 +284,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuleren</button>
-                    <button type="submit" class="btn btn-primary">Toevoegen</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('messages.cancel') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('messages.add') }}</button>
                 </div>
             </form>
         </div>
@@ -298,7 +298,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="createLanguageModalLabel">
-                    Nieuwe Programmeertaal Toevoegen
+                    {{ __('messages.add_new_programming_language') }}
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -306,29 +306,29 @@
                 @csrf
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="name" class="form-label">Naam</label>
+                        <label for="name" class="form-label">{{ __('messages.name') }}</label>
                         <input type="text" class="form-control" id="name" name="name" required>
                     </div>
                     <div class="mb-3">
-                        <label for="color_code" class="form-label">Kleurcode</label>
+                        <label for="color_code" class="form-label">{{ __('messages.color_code') }}</label>
                         <div class="input-group">
                             <input type="color" class="form-control form-control-color" id="color_picker" value="#6c757d">
                             <input type="text" class="form-control" id="color_code" name="color_code" placeholder="#6c757d">
                         </div>
-                        <div class="form-text">Kies een kleur of voer een HEX kleurcode in (bijv. #FF5733)</div>
+                        <div class="form-text">{{ __('messages.choose_or_enter_color') }}</div>
                     </div>
                     <div class="mb-3">
-                        <label for="icon" class="form-label">Icon (Bootstrap Icons class)</label>
+                        <label for="icon" class="form-label">{{ __('messages.icon') }} (Bootstrap Icons class)</label>
                         <input type="text" class="form-control" id="icon" name="icon" placeholder="bi bi-code-slash">
                         <div class="form-text">
-                            Voer een Bootstrap Icons class in. 
-                            <a href="https://icons.getbootstrap.com/" target="_blank">Bekijk alle beschikbare icons</a>
+                            {{ __('messages.see_all_icons') }}
+                            <a href="https://icons.getbootstrap.com/" target="_blank">{{ __('messages.view_all_icons') }}</a>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuleren</button>
-                    <button type="submit" class="btn btn-primary">Toevoegen</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('messages.cancel') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('messages.add') }}</button>
                 </div>
             </form>
         </div>

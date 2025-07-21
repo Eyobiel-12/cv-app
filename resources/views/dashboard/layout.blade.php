@@ -116,7 +116,7 @@
     <nav class="navbar navbar-expand-lg fixed-top dashboard-navbar">
         <div class="container">
             <a class="navbar-brand" href="{{ route('dashboard') }}">
-                <i class="bi bi-speedometer2 me-2"></i>Dashboard
+                <i class="bi bi-speedometer2 me-2"></i>{{ __('messages.dashboard') }}
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDashboard" aria-controls="navbarDashboard" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -125,22 +125,22 @@
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
-                            <i class="bi bi-house-door me-1"></i>Overzicht
+                            <i class="bi bi-house-door me-1"></i>{{ __('messages.home') }}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('dashboard.projects*') ? 'active' : '' }}" href="{{ route('dashboard.projects') }}">
-                            <i class="bi bi-kanban me-1"></i>Projecten
+                            <i class="bi bi-kanban me-1"></i>{{ __('messages.projects') }}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('dashboard.contacts*') ? 'active' : '' }}" href="{{ route('dashboard.contacts') }}">
-                            <i class="bi bi-envelope me-1"></i>Berichten
+                            <i class="bi bi-envelope me-1"></i>{{ __('messages.contact') }}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('dashboard.downloads*') ? 'active' : '' }}" href="{{ route('dashboard.downloads') }}">
-                            <i class="bi bi-graph-up me-1"></i>Statistieken
+                            <i class="bi bi-graph-up me-1"></i>{{ __('messages.download_cv') }}
                         </a>
                     </li>
                 </ul>
@@ -152,14 +152,14 @@
                     </li>
                     <li class="nav-item">
                         <button class="nav-link" id="theme-toggle">
-                            <i class="bi bi-moon me-1" id="theme-icon"></i>Thema
+                            <i class="bi bi-moon me-1" id="theme-icon"></i>{{ __('messages.dark_mode') }}
                         </button>
                     </li>
                     <li class="nav-item">
                         <form method="POST" action="{{ route('logout') }}" class="d-inline">
                             @csrf
                             <button type="submit" class="nav-link text-danger">
-                                <i class="bi bi-box-arrow-right me-1"></i>Uitloggen
+                                <i class="bi bi-box-arrow-right me-1"></i>{{ __('messages.logout') }}
                             </button>
                         </form>
                     </li>

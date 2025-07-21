@@ -2,7 +2,7 @@
 <section class="py-5">
     <div class="container px-5 mb-5">
         <div class="text-center mb-5">
-            <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Projects</span></h1>
+            <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">{{ __('messages.projects') }}</span></h1>
         </div>
         <div class="row" id="project-cards-container">
             <!-- Project Cards will be loaded here -->
@@ -56,7 +56,7 @@
                     projectsContainer.innerHTML = `
                         <div class="col-12">
                             <div class="alert alert-info text-center">
-                                <i class="bi bi-info-circle me-2"></i>Geen projecten gevonden
+                                <i class="bi bi-info-circle me-2"></i>{{ __('messages.no_projects_found') }}
                             </div>
                         </div>
                     `;
@@ -82,7 +82,7 @@
                         if (project.languages.length > 3) {
                             languagesHTML += `
                                 <span class="badge bg-secondary me-1 mb-1" style="font-size: 0.75rem; padding: 0.25em 0.5em;">
-                                    +${project.languages.length - 3} meer
+                                    +${project.languages.length - 3} {{ __('messages.more') }}
                                 </span>
                             `;
                         }
@@ -98,7 +98,7 @@
                     } else {
                         thumbnailHTML = `
                             <div class="bg-light d-flex align-items-center justify-content-center" style="height: 180px;">
-                                <span class="text-muted">Geen afbeelding</span>
+                                <span class="text-muted">{{ __('messages.no_image') }}</span>
                             </div>
                         `;
                     }
@@ -124,7 +124,7 @@
                                     </div>
                                     <p class="card-text text-muted small mb-3">${project.details.substring(0, 100)}${project.details.length > 100 ? '...' : ''}</p>
                                     <button class="btn btn-primary btn-sm view-details-btn">
-                                        <i class="bi bi-eye me-1"></i>Details bekijken
+                                        <i class="bi bi-eye me-1"></i>{{ __('messages.view_details') }}
                                     </button>
                                 </div>
                             </div>
@@ -162,7 +162,7 @@
             document.getElementById('project-cards-container').innerHTML = `
                 <div class="col-12">
                     <div class="alert alert-danger">
-                        <i class="bi bi-exclamation-triangle me-2"></i>Er is een fout opgetreden bij het laden van de projecten
+                        <i class="bi bi-exclamation-triangle me-2"></i>{{ __('messages.error_loading_projects') }}
                     </div>
                 </div>
             `;
@@ -187,7 +187,7 @@
         } else {
             imageContainer.innerHTML = `
                 <div class="bg-light rounded-3 d-flex align-items-center justify-content-center" style="height: 250px;">
-                    <span class="text-muted">Geen afbeelding</span>
+                    <span class="text-muted">{{ __('messages.no_image') }}</span>
                 </div>
             `;
         }
@@ -218,7 +218,7 @@
         if (project.previewLink && project.previewLink.trim() !== '') {
             linkContainer.innerHTML = `
                 <a href="${project.previewLink}" target="_blank" class="btn btn-primary">
-                    <i class="bi bi-link-45deg me-1"></i>Bekijk Project
+                    <i class="bi bi-link-45deg me-1"></i>{{ __('messages.view_project') }}
                 </a>
             `;
         } else {

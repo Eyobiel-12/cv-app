@@ -10,13 +10,26 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
             <ul class="navbar-nav mb-2 mb-lg-0 gap-2 align-items-center">
-                <li class="nav-item"><a class="nav-link nav-link-modern px-4 py-2" href="{{url('/')}}">Home</a></li>
-                <li class="nav-item"><a class="nav-link nav-link-modern px-4 py-2" href="{{url('/resume')}}">CV</a></li>
-                <li class="nav-item"><a class="nav-link nav-link-modern px-4 py-2" href="{{url('/services')}}">Services</a></li>
-                <li class="nav-item"><a class="nav-link nav-link-modern px-4 py-2" href="{{url('/work')}}">Work</a></li>
-                <li class="nav-item"><a class="nav-link nav-link-modern px-4 py-2" href="{{url('/projects')}}">Projects</a></li>
-                <li class="nav-item"><a class="nav-link nav-link-modern px-4 py-2" href="{{url('/contact')}}">Contact</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-modern px-4 py-2" href="{{url('/')}}">{{ __('messages.home') }}</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-modern px-4 py-2" href="{{url('/resume')}}">{{ __('messages.cv') }}</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-modern px-4 py-2" href="{{url('/services')}}">{{ __('messages.services') }}</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-modern px-4 py-2" href="{{url('/work')}}">{{ __('messages.work') }}</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-modern px-4 py-2" href="{{url('/projects')}}">{{ __('messages.projects') }}</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-modern px-4 py-2" href="{{url('/contact')}}">{{ __('messages.contact') }}</a></li>
                 
+                <li class="nav-item">
+                    <form id="lang-switch-form" action="{{ route('lang.switch') }}" method="POST" class="d-inline">
+                        @csrf
+                        <input type="hidden" name="lang" value="{{ app()->getLocale() === 'en' ? 'nl' : 'en' }}">
+                        <button type="submit" class="btn btn-outline-secondary ms-2 lang-flag-btn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ app()->getLocale() === 'en' ? 'Nederlands' : 'English' }}">
+                            @if(app()->getLocale() === 'en')
+                                <img src="https://cdn.jsdelivr.net/npm/svg-country-flags@1.2.10/svg/nl.svg" alt="Nederlands" class="lang-flag-img">
+                            @else
+                                <img src="https://cdn.jsdelivr.net/npm/svg-country-flags@1.2.10/svg/gb.svg" alt="English" class="lang-flag-img">
+                            @endif
+                        </button>
+                    </form>
+                </li>
                 <li class="nav-item">
                     <button id="theme-toggle" class="btn btn-outline-secondary ms-2" style="border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
                         <i id="theme-icon" class="bi bi-moon"></i>
@@ -62,6 +75,34 @@
             font-size: 1.8rem;
         }
     }
+
+.lang-flag-btn {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: #f8f9fa;
+    border: 1.5px solid #adb5bd;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s;
+}
+.lang-flag-btn:hover, .lang-flag-btn:focus {
+    box-shadow: 0 4px 16px rgba(95,46,234,0.10);
+    background: #fff;
+}
+.lang-flag-img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #fff;
+    object-fit: cover;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    display: block;
+}
 </style>
 
 <script>
@@ -94,5 +135,11 @@
         document.getElementById('theme-toggle').onclick = function() {
             setTheme(document.body.classList.contains('darkmode') ? 'light' : 'dark');
         };
+
+        // Bootstrap tooltip initialisatie
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+            new bootstrap.Tooltip(tooltipTriggerEl);
+        });
     });
 </script>

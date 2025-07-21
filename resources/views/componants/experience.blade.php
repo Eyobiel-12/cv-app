@@ -2,7 +2,7 @@
 <section class="container pt-4" id="">
     <!-- Titel en sectie header -->
     <div class="text-center mb-5">
-        <h2 class="text-gradient fw-bolder mb-3">Werkervaring</h2>
+        <h2 class="text-gradient fw-bolder mb-3">{{ __('messages.experience') }}</h2>
         <div class="section-divider mx-auto mb-4"></div>
         
         <!-- Download Button - Nu in het midden -->
@@ -10,7 +10,7 @@
             <button class="btn btn-download px-4 py-3" id="downloadResumeBtn">
                 <div class="btn-download-content">
                     <div class="d-inline-block bi bi-download me-2"></div>
-                    <span>Download CV</span>
+                    <span>{{ __('messages.download_cv') }}</span>
                 </div>
                 <span id="resumeProtectedBadge" class="badge bg-warning ms-2" style="display: none;">
                     <i class="bi bi-lock-fill"></i>
@@ -29,7 +29,7 @@
         <div class="modal-content border-0">
             <div class="modal-header">
                 <h5 class="modal-title" id="downloadPasswordModalLabel">
-                    <i class="bi bi-lock-fill me-2"></i>Wachtwoord Vereist
+                    <i class="bi bi-lock-fill me-2"></i>{{ __('messages.password_required') }}
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -38,19 +38,19 @@
                     <div class="modal-icon mb-3">
                         <i class="bi bi-file-earmark-lock"></i>
                     </div>
-                    <h4 class="mb-3">Beveiligd Document</h4>
-                    <p class="text-muted">Dit CV is beveiligd met een wachtwoord. Voer het wachtwoord in om te downloaden.</p>
+                    <h4 class="mb-3">{{ __('messages.protected_document') }}</h4>
+                    <p class="text-muted">{{ __('messages.protected_document_desc') }}</p>
                 </div>
                 
                 <div id="passwordError" class="alert alert-danger" style="display: none;">
                     <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                    <span id="passwordErrorMessage">Incorrect wachtwoord</span>
+                    <span id="passwordErrorMessage">{{ __('messages.incorrect_password') }}</span>
                 </div>
                 
                 <form id="downloadPasswordForm">
                     <div class="mb-3">
                         <label for="download_password" class="form-label">
-                            <i class="bi bi-key me-1"></i>Wachtwoord
+                            <i class="bi bi-key me-1"></i>{{ __('messages.password') }}
                         </label>
                         <div class="input-group password-input-group">
                             <input type="password" class="form-control" id="download_password" name="password" required autofocus>
@@ -58,16 +58,16 @@
                                 <i class="bi bi-eye"></i>
                             </button>
                         </div>
-                        <div class="form-text">Voer het wachtwoord in dat je van de eigenaar hebt ontvangen.</div>
+                        <div class="form-text">{{ __('messages.enter_password_hint') }}</div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    <i class="bi bi-x-circle me-1"></i>Annuleren
+                    <i class="bi bi-x-circle me-1"></i>{{ __('messages.cancel') }}
                 </button>
                 <button type="button" class="btn btn-primary" id="confirmDownloadBtn">
-                    <i class="bi bi-download me-1"></i>Downloaden
+                    <i class="bi bi-download me-1"></i>{{ __('messages.download') }}
                 </button>
             </div>
         </div>
@@ -356,7 +356,7 @@ ${singleItem.details}
             
             let btnContent = `<div class="btn-download-content">
                 <div class="d-inline-block bi bi-download me-2"></div>
-                <span>Download CV</span>
+                <span>{{ __('messages.download_cv') }}</span>
             </div>`;
             
             // Toon badge als het CV beveiligd is
@@ -372,14 +372,14 @@ ${singleItem.details}
             downloadBtn.disabled = true;
             downloadBtn.innerHTML = `<div class="btn-download-content">
                 <div class="d-inline-block bi bi-download me-2"></div>
-                <span>Geen CV beschikbaar</span>
+                <span>{{ __('messages.no_cv_available') }}</span>
             </div>`;
         }
     };
     
     document.getElementById('downloadResumeBtn').addEventListener('click', async function() {
         if (!currentResumeInfo || !currentResumeInfo.has_file) {
-            alert('Geen CV bestand beschikbaar');
+            alert('{{ __('messages.no_cv_file_available') }}');
             return;
         }
 
@@ -396,7 +396,7 @@ ${singleItem.details}
     document.getElementById('confirmDownloadBtn').addEventListener('click', function() {
         const password = document.getElementById('download_password').value;
         if (!password) {
-            showPasswordError('Voer een wachtwoord in');
+            showPasswordError('{{ __('messages.enter_password') }}');
             return;
         }
         downloadResume(password);
@@ -452,7 +452,7 @@ ${singleItem.details}
             const confirmBtn = document.getElementById('confirmDownloadBtn');
             const originalBtnContent = confirmBtn.innerHTML;
             confirmBtn.disabled = true;
-            confirmBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Bezig...';
+            confirmBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>{{ __('messages.loading') }}';
             
             hidePasswordError();
 
@@ -479,15 +479,15 @@ ${singleItem.details}
 
         } catch (error) {
             if (error.response?.status === 401) {
-                showPasswordError('Incorrect wachtwoord. Probeer opnieuw.');
+                showPasswordError('{{ __('messages.incorrect_password_try_again') }}');
             } else {
-                showPasswordError('Fout bij downloaden: ' + (error.message || 'Onbekende fout'));
+                showPasswordError('{{ __('messages.download_error') }}: ' + (error.message || '{{ __('messages.unknown_error') }}'));
             }
         } finally {
             // Herstel de knop
             const confirmBtn = document.getElementById('confirmDownloadBtn');
             confirmBtn.disabled = false;
-            confirmBtn.innerHTML = '<i class="bi bi-download me-1"></i>Downloaden';
+            confirmBtn.innerHTML = '<i class="bi bi-download me-1"></i>{{ __('messages.download') }}';
         }
     };
 

@@ -5,7 +5,7 @@
 <section class="py-5">
     <div class="container px-5 mb-5">
         <div class="text-center mb-5">
-            <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Mijn Werk</span></h1>
+            <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">{{ __('messages.work') }}</span></h1>
         </div>
         
         <div class="row">
@@ -18,12 +18,12 @@
                                     <img class="card-img-top" src="{{ asset('storage/' . $project->thumbLink) }}" alt="{{ $project->title }}" style="height: 180px; object-fit: cover;">
                                 @else
                                     <div class="bg-light d-flex align-items-center justify-content-center" style="height: 180px;">
-                                        <span class="text-muted">Geen afbeelding</span>
+                                        <span class="text-muted">{{ __('messages.no_image') }}</span>
                                     </div>
                                 @endif
                                 <div class="position-absolute top-0 end-0 p-2">
                                     @if(!empty($project->previewLink))
-                                        <a href="{{ $project->previewLink }}" target="_blank" class="btn btn-sm btn-light rounded-circle shadow-sm" title="Bekijk live project" onclick="event.stopPropagation();">
+                                        <a href="{{ $project->previewLink }}" target="_blank" class="btn btn-sm btn-light rounded-circle shadow-sm" title="{{ __('messages.view_live_project') }}" onclick="event.stopPropagation();">
                                             <i class="bi bi-link-45deg"></i>
                                         </a>
                                     @endif
@@ -43,14 +43,14 @@
                                         @endforeach
                                         @if(count($project->languages) > 3)
                                             <span class="badge bg-secondary me-1 mb-1" style="font-size: 0.75rem; padding: 0.25em 0.5em;">
-                                                +{{ count($project->languages) - 3 }} meer
+                                                +{{ count($project->languages) - 3 }} {{ __('messages.more') }}
                                             </span>
                                         @endif
                                     </div>
                                 @endif
                                 <p class="card-text text-muted small mb-3">{{ \Illuminate\Support\Str::limit($project->details, 100) }}</p>
                                 <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#projectModal{{ $project->id }}">
-                                    <i class="bi bi-eye me-1"></i>Details bekijken
+                                    <i class="bi bi-eye me-1"></i>{{ __('messages.view_details') }}
                                 </button>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                                                     <img src="{{ asset('storage/' . $project->thumbLink) }}" alt="{{ $project->title }}" class="img-fluid rounded-3">
                                                 @else
                                                     <div class="bg-light rounded-3 d-flex align-items-center justify-content-center" style="height: 250px;">
-                                                        <span class="text-muted">Geen afbeelding</span>
+                                                        <span class="text-muted">{{ __('messages.no_image') }}</span>
                                                     </div>
                                                 @endif
                                             </div>
@@ -92,7 +92,7 @@
                                                 </div>
                                                 @if(!empty($project->previewLink))
                                                     <a href="{{ $project->previewLink }}" target="_blank" class="btn btn-primary">
-                                                        <i class="bi bi-link-45deg me-1"></i>Bekijk Project
+                                                        <i class="bi bi-link-45deg me-1"></i>{{ __('messages.view_project') }}
                                                     </a>
                                                 @endif
                                             </div>
@@ -106,7 +106,7 @@
             @else
                 <div class="col-12">
                     <div class="alert alert-info text-center">
-                        <i class="bi bi-info-circle me-2"></i>Geen projecten gevonden
+                        <i class="bi bi-info-circle me-2"></i>{{ __('messages.no_projects_found') }}
                     </div>
                 </div>
             @endif
@@ -114,7 +114,7 @@
         
         <div class="text-center mt-5">
             <a href="{{ url('/projects') }}" class="btn btn-outline-primary">
-                <i class="bi bi-grid-3x3-gap me-1"></i>Bekijk alle projecten
+                <i class="bi bi-grid-3x3-gap me-1"></i>{{ __('messages.view_all_projects') }}
             </a>
         </div>
     </div>
