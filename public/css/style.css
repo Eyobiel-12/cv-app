@@ -148,7 +148,10 @@ footer, .footer-premium, .section-card[role="contentinfo"] {
   font-size: 2rem;
 }
 .nav-link-modern {
-  color: var(--color-navbar-text) !important;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-alt));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   border-radius: 16px;
   font-size: 1.1rem;
   font-weight: 500;
@@ -156,13 +159,19 @@ footer, .footer-premium, .section-card[role="contentinfo"] {
   padding: 0.5rem 1.5rem !important;
 }
 .nav-link-modern:hover, .nav-link-modern:focus {
-  background: linear-gradient(90deg, #5f2eea 0%, #a259c9 100%);
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary-alt) 100%) !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+  background-clip: unset !important;
   color: #fff !important;
   box-shadow: 0 2px 12px rgba(95,46,234,0.10);
   text-decoration: none;
 }
 .navbar-nav .nav-item .nav-link-modern.active, .navbar-nav .nav-item .nav-link-modern[aria-current="page"] {
-  background: #5f2eea;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary-alt) 100%) !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+  background-clip: unset !important;
   color: #fff !important;
 }
 @media (max-width: 991px) {
@@ -186,6 +195,13 @@ body.darkmode {
   --color-navbar-text: #a259c9;
   --color-card-bg: #232336;
   --color-card-shadow: 0 8px 32px rgba(162,89,201,0.10);
+}
+
+body.darkmode .nav-link-modern {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-alt));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .section-card {
@@ -350,4 +366,198 @@ body.darkmode .brand-logo {
 
 .custom-navbar {
   margin-top: 2.5rem;
+}
+
+/* Modern Services Section */
+.service-card {
+  background: var(--color-card-bg);
+  border-radius: 24px;
+  padding: 32px 24px;
+  box-shadow: var(--color-card-shadow);
+  border: 1px solid rgba(95, 46, 234, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(95, 46, 234, 0.15);
+  border-color: rgba(95, 46, 234, 0.2);
+}
+
+.service-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  height: 80px;
+}
+
+.service-icon {
+  position: relative;
+  z-index: 2;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-alt));
+  border-radius: 20px;
+  color: white;
+  font-size: 28px;
+  transition: all 0.3s ease;
+}
+
+.service-icon-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-alt));
+  border-radius: 50%;
+  opacity: 0.1;
+  transition: all 0.4s ease;
+}
+
+.service-card:hover .service-icon {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 8px 24px rgba(95, 46, 234, 0.3);
+}
+
+.service-card:hover .service-icon-bg {
+  transform: translate(-50%, -50%) scale(1.2);
+  opacity: 0.15;
+}
+
+.service-content {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.service-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 16px;
+  transition: color 0.3s ease;
+}
+
+.service-description {
+  color: var(--color-text);
+  opacity: 0.8;
+  line-height: 1.6;
+  margin-bottom: 24px;
+  font-size: 1rem;
+}
+
+.service-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.feature-tag {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-alt));
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.service-card:hover .feature-tag {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(95, 46, 234, 0.3);
+}
+
+.service-hover-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-alt));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  border-radius: 24px;
+  z-index: 1;
+}
+
+.service-card:hover .service-hover-effect {
+  opacity: 0.03;
+}
+
+/* Dark mode adjustments for services */
+body.darkmode .service-card {
+  border-color: rgba(162, 89, 201, 0.15);
+}
+
+body.darkmode .service-card:hover {
+  border-color: rgba(162, 89, 201, 0.3);
+  box-shadow: 0 20px 40px rgba(162, 89, 201, 0.15);
+}
+
+body.darkmode .service-icon {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-alt));
+}
+
+body.darkmode .service-icon-bg {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-alt));
+}
+
+body.darkmode .feature-tag {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-alt));
+}
+
+body.darkmode .service-hover-effect {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-alt));
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .service-card {
+    padding: 24px 20px;
+  }
+  
+  .service-icon {
+    width: 56px;
+    height: 56px;
+    font-size: 24px;
+  }
+  
+  .service-icon-bg {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .service-title {
+    font-size: 1.3rem;
+  }
+  
+  .service-description {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .service-card {
+    padding: 20px 16px;
+  }
+  
+  .service-features {
+    gap: 6px;
+  }
+  
+  .feature-tag {
+    padding: 4px 10px;
+    font-size: 0.8rem;
+  }
 }
