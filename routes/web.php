@@ -23,20 +23,6 @@ Route::get('/services', function () {
     return view('pages.services');
 });
 
-Route::get('/work', function () {
-    $projects = DB::table('projects')->take(8)->get();
-    
-    // Haal voor elk project de gekoppelde programmeertalen op
-    foreach ($projects as $project) {
-        $project->languages = DB::table('project_programming_language')
-            ->join('programming_languages', 'project_programming_language.programming_language_id', '=', 'programming_languages.id')
-            ->where('project_programming_language.project_id', $project->id)
-            ->select('programming_languages.*')
-            ->get();
-    }
-    
-    return view('pages.work', compact('projects'));
-});
 
 // Admin auth routes - zorg dat deze routes altijd toegankelijk zijn
 Route::get('/admin', [AuthController::class, 'showAdminLogin'])->name('admin.login');
