@@ -257,6 +257,16 @@ body:not(.darkmode) .project-card {
     flex-direction: column;
 }
 
+/* Placeholder cards */
+.project-card.placeholder {
+    opacity: 0.85;
+    cursor: default;
+}
+.project-card.placeholder .view-details-btn {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 .project-title {
     font-size: 1.18rem;
     font-weight: 700;
@@ -389,6 +399,80 @@ body:not(.darkmode) .project-description {
 
             if (response.status === 200) {
                 projectsData = response.data; // Sla projecten op in globale variabele
+
+                // Voeg 3 extra projecten toe zodat ze exact als de rest renderen
+                const extraProjects = [
+                    {
+                        title: 'OnTourly',
+                        details: 'Platform voor tour- & eventmanagement: bookings, contracts, logistics.',
+                        thumbLink: `{{ asset('assets/ontourly.png') }}`,
+                        previewLink: 'https://ontourly.com',
+                        languages: [
+                            { name: 'Laravel', color_code: '#6610f2', icon: '' },
+                            { name: 'PHP', color_code: '#777bb3', icon: '' },
+                            { name: 'HTML', color_code: '#e34f26', icon: '' },
+                            { name: 'JavaScript', color_code: '#f59e0b', icon: '' },
+                            { name: 'SQL', color_code: '#00758f', icon: '' },
+                            { name: 'CSS', color_code: '#264de4', icon: '' }
+                        ]
+                    },
+                    {
+                        title: 'Partijzorg',
+                        details: 'Specialist in thuiszorg, werving en selectie van zorgpersoneel.',
+                        thumbLink: `{{ asset('assets/partijzorg.png') }}`,
+                        previewLink: 'https://partijzorg.nl',
+                        languages: [
+                            { name: 'PHP', color_code: '#0d6efd', icon: '' },
+                            { name: 'Laravel', color_code: '#6610f2', icon: '' },
+                            { name: 'JavaScript', color_code: '#f59e0b', icon: '' },
+                        ]
+                    },
+                    {
+                        title: 'IA Ticket',
+                        details: 'Vind de beste events. Gratis registratie, gegarandeerde entree.',
+                        thumbLink: `{{ asset('assets/iaticket.png') }}`,
+                        previewLink: 'https://iaticket.com',
+                        languages: [
+                            { name: 'PHP', color_code: '#0d6efd', icon: '' },
+                            { name: 'Laravel', color_code: '#6610f2', icon: '' },
+                            { name: 'JavaScript', color_code: '#f59e0b', icon: '' },
+                        ]
+                    }
+                ];
+                projectsData = [...projectsData, ...extraProjects];
+
+                // Forceer badges: deze projecten zijn gebouwd met WordPress
+                const wordpressTitles = ['house of lush', 'despit hold', 'nieuwspitholt', 'romys touch', 'partijzorg'];
+                projectsData = projectsData.map(p => {
+                    const titleLc = (p.title || '').toLowerCase();
+                    if (wordpressTitles.includes(titleLc)) {
+                        p.languages = [
+                            { name: 'WordPress', color_code: '#21759b', icon: '' }
+                        ];
+                    } else if (titleLc === 'oliviwilson') {
+                        p.languages = [
+                            { name: 'Shopify', color_code: '#95BF47', icon: '' }
+                        ];
+                    }
+                    return p;
+                });
+
+                // Sorteer projecten: eerst platform (WordPress -> Shopify -> overige), daarna titel
+                const platformRank = (p) => {
+                    const langs = Array.isArray(p.languages) ? p.languages : [];
+                    const names = langs.map(l => (l.name || '').toLowerCase());
+                    if (names.includes('wordpress')) return 0;
+                    if (names.includes('shopify')) return 1;
+                    return 2;
+                };
+                projectsData.sort((a, b) => {
+                    const ra = platformRank(a);
+                    const rb = platformRank(b);
+                    if (ra !== rb) return ra - rb;
+                    const ta = (a.title || '').toLowerCase();
+                    const tb = (b.title || '').toLowerCase();
+                    return ta.localeCompare(tb);
+                });
                 const projectsContainer = document.getElementById('project-cards-container');
                 projectsContainer.innerHTML = ''; // Clear existing content
                 
@@ -412,7 +496,7 @@ body:not(.darkmode) .project-description {
                             const bgColor = lang.color_code || '#6c757d';
                             const icon = lang.icon ? `<i class="${lang.icon} me-1"></i>` : '';
                             languagesHTML += `
-                                <span class="tech-badge" style="background-color: ${bgColor};">
+                                <span class="tech-badge" style="background-color: ${bgColor}; color: #ffffff; border: none;">
                                     ${icon}${lang.name}
                                 </span>
                             `;
@@ -491,6 +575,8 @@ body:not(.darkmode) .project-description {
                         showProjectDetails(projectIndex);
                     });
                 });
+
+                // Geen aparte statische rendering: extra projecten zijn mee-gerenderd in dezelfde loop
             }
         } catch (error) {
             console.error('Error fetching projects:', error);
@@ -516,9 +602,9 @@ body:not(.darkmode) .project-description {
         // Afbeelding
         const imageContainer = document.getElementById('modal-project-image');
         if (project.thumbLink && project.thumbLink.trim() !== '') {
-            const imgSrc = project.thumbLink.startsWith('http') ? 
-                project.thumbLink : 
-                `/storage/${project.thumbLink}`;
+            const imgSrc = project.thumbLink.startsWith('http') ?
+                project.thumbLink :
+                `{{ asset('') }}${project.thumbLink}`; // Zelfde resolver als kaartjes
             imageContainer.innerHTML = `<img src="${imgSrc}" alt="${project.title}" class="img-fluid rounded-3">`;
         } else {
             imageContainer.innerHTML = `
@@ -536,7 +622,7 @@ body:not(.darkmode) .project-description {
                 const bgColor = lang.color_code || '#6c757d';
                 const icon = lang.icon ? `<i class="${lang.icon} me-1"></i>` : '';
                 languagesHTML += `
-                    <span class="badge me-1 mb-1" style="background-color: ${bgColor}; font-size: 0.85rem; padding: 0.35em 0.65em;">
+                    <span class="badge me-1 mb-1" style="background-color: ${bgColor}; color: #ffffff; border: none; font-size: 0.85rem; padding: 0.35em 0.65em;">
                         ${icon}${lang.name}
                     </span>
                 `;
