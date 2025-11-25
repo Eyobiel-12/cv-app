@@ -2,6 +2,7 @@
     "private": true,
     "scripts": {
         "dev": "vite",
+        "prebuild": "node -e \"const fs=require('fs'); ['resources/css','resources/js'].forEach(d=>{fs.mkdirSync(d,{recursive:true});}); fs.writeFileSync('resources/css/app.css',''); fs.writeFileSync('resources/js/app.js','');\"",
         "build": "vite build"
     },
     "devDependencies": {
