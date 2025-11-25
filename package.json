@@ -2,7 +2,8 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "composer install --no-dev --prefer-dist --optimize-autoloader && php artisan static:generate"
+        "prebuild": "node -e \"const fs=require('fs'); ['resources/css','resources/js'].forEach(d=>{fs.mkdirSync(d,{recursive:true});}); fs.writeFileSync('resources/css/app.css',''); fs.writeFileSync('resources/js/app.js','');\"",
+        "build": "echo 'Static files are pre-generated and committed to the repository'"
     },
     "devDependencies": {
         "axios": "^1.1.2",

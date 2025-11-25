@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Musabe Coucou</title>
+    <link rel="icon" type="image/x-icon" href="http://localhost/assets/favicon1.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="http://localhost/css/bootstrap.css" rel="stylesheet" />
+    <link href="http://localhost/css/style.css" rel="stylesheet" />
+    
+    <style>
+        :root {
+            /* Base colors */
+            --color-bg: #fff;
+            --color-bg-alt: #f6f6fa;
+            --color-text: #222;
+            --color-text-rgb: 34, 34, 34;
+            --color-primary: #5f2eea;
+            --color-primary-rgb: 95, 46, 234;
+            --color-primary-alt: #a259c9;
+            --color-navbar-bg: rgba(255,255,255,0.85);
+            --color-navbar-text: #5f2eea;
+            --color-card-bg: #fff;
+            --color-card-shadow: 0 8px 32px rgba(95,46,234,0.10);
+            
+            /* Transition speeds */
+            --transition-speed: 0.3s;
+        }
+        
+        body.darkmode {
+            --color-bg: #181824;
+            --color-bg-alt: #232336;
+            --color-text: #f3f3fa;
+            --color-text-rgb: 243, 243, 250;
+            --color-primary: #a259c9;
+            --color-primary-rgb: 162, 89, 201;
+            --color-primary-alt: #5f2eea;
+            --color-navbar-bg: rgba(24,24,36,0.92);
+            --color-navbar-text: #a259c9;
+            --color-card-bg: #232336;
+            --color-card-shadow: 0 8px 32px rgba(162,89,201,0.10);
+        }
+        
+        /* Smooth transitions for theme changes */
+        body, .card, .modal-content, .form-control, .btn, .navbar, .modal-header, .modal-footer {
+            transition: background-color var(--transition-speed), 
+                        color var(--transition-speed), 
+                        border-color var(--transition-speed),
+                        box-shadow var(--transition-speed);
+        }
+        
+        /* Project card hover effect */
+        .project-card {
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(var(--color-primary-rgb), 0.15) !important;
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column h-100">
+
+<!-- Navigation Ultra Modern -->
+<div class="navbar-brand-left position-absolute top-0 start-0 ps-5 pt-4" style="z-index:10;">
+    <a href="http://localhost" class="brand-logo-link">
+        <span class="brand-logo fw-bold text-uppercase">MC.</span>
+    </a>
+</div>
+<nav class="navbar navbar-expand-lg custom-navbar shadow-lg py-3 justify-content-center">
+    <div class="container px-4 justify-content-center">
+        <!-- Mobile Brand Logo (hidden on desktop) -->
+        <a href="http://localhost" class="navbar-brand d-lg-none mobile-brand-logo">
+            <span class="brand-logo fw-bold text-uppercase">MC.</span>
+        </a>
+        
+        <!-- Mobile Controls (hidden on desktop) -->
+        <div class="d-lg-none mobile-controls">
+            <form id="lang-switch-form-mobile" action="http://localhost/lang-switch" method="POST" class="d-inline me-2">
+                <input type="hidden" name="_token" value="Vzy26tUiuNuAIZUrrrW9UWyRluYIirkvssebouso" autocomplete="off">                <input type="hidden" name="lang" value="nl">
+                <button type="submit" class="btn btn-outline-secondary mobile-control-btn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Nederlands">
+                                            <img src="https://cdn.jsdelivr.net/npm/svg-country-flags@1.2.10/svg/nl.svg" alt="Nederlands" class="lang-flag-img">
+                                    </button>
+            </form>
+            <button id="theme-toggle-mobile" class="btn btn-outline-secondary mobile-control-btn me-2">
+                <i id="theme-icon-mobile" class="bi bi-moon"></i>
+            </button>
+        </div>
+        
+        <!-- Hamburger Menu Button -->
+        <button class="navbar-toggler mobile-toggle-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+            <!-- Desktop Menu -->
+            <ul class="navbar-nav mb-2 mb-lg-0 gap-2 align-items-center d-none d-lg-flex">
+                <li class="nav-item"><a class="nav-link nav-link-modern px-4 py-2" href="http://localhost">Home</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-modern px-4 py-2" href="http://localhost/about">About</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-modern px-4 py-2" href="http://localhost/resume">Resume</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-modern px-4 py-2" href="http://localhost/services">Services</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-modern px-4 py-2" href="http://localhost/projects">MY WORK</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-modern px-4 py-2" href="http://localhost/contact">Contact</a></li>
+                
+                <!-- Desktop Controls -->
+                <li class="nav-item">
+                    <form id="lang-switch-form" action="http://localhost/lang-switch" method="POST" class="d-inline">
+                        <input type="hidden" name="_token" value="Vzy26tUiuNuAIZUrrrW9UWyRluYIirkvssebouso" autocomplete="off">                        <input type="hidden" name="lang" value="nl">
+                        <button type="submit" class="btn btn-outline-secondary ms-2 lang-flag-btn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Nederlands">
+                                                            <img src="https://cdn.jsdelivr.net/npm/svg-country-flags@1.2.10/svg/nl.svg" alt="Nederlands" class="lang-flag-img">
+                                                    </button>
+                    </form>
+                </li>
+                <li class="nav-item">
+                    <button id="theme-toggle" class="btn btn-outline-secondary ms-2" style="border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                        <i id="theme-icon" class="bi bi-moon"></i>
+                    </button>
+                </li>
+            </ul>
+            
+            <!-- Mobile Menu -->
+            <div class="mobile-menu-container d-lg-none">
+                <div class="mobile-menu-card">
+                    <div class="mobile-menu-header">
+                        <h6 class="mobile-menu-title">Navigation</h6>
+                        <div class="mobile-menu-divider"></div>
+                    </div>
+                    <ul class="mobile-menu-list">
+                        <li class="mobile-menu-item">
+                            <a href="http://localhost" class="mobile-menu-link">
+                                <i class="bi bi-house-door mobile-menu-icon"></i>
+                                <span class="mobile-menu-text">Home</span>
+                                <i class="bi bi-arrow-right mobile-menu-arrow"></i>
+                            </a>
+                        </li>
+                        <li class="mobile-menu-item">
+                            <a href="http://localhost/about" class="mobile-menu-link">
+                                <i class="bi bi-person mobile-menu-icon"></i>
+                                <span class="mobile-menu-text">About</span>
+                                <i class="bi bi-arrow-right mobile-menu-arrow"></i>
+                            </a>
+                        </li>
+                        <li class="mobile-menu-item">
+                            <a href="http://localhost/resume" class="mobile-menu-link">
+                                <i class="bi bi-file-earmark-person mobile-menu-icon"></i>
+                                <span class="mobile-menu-text">Resume</span>
+                                <i class="bi bi-arrow-right mobile-menu-arrow"></i>
+                            </a>
+                        </li>
+                        <li class="mobile-menu-item">
+                            <a href="http://localhost/services" class="mobile-menu-link">
+                                <i class="bi bi-gear mobile-menu-icon"></i>
+                                <span class="mobile-menu-text">Services</span>
+                                <i class="bi bi-arrow-right mobile-menu-arrow"></i>
+                            </a>
+                        </li>
+                        <li class="mobile-menu-item">
+                            <a href="http://localhost/projects" class="mobile-menu-link">
+                                <i class="bi bi-folder2-open mobile-menu-icon"></i>
+                                <span class="mobile-menu-text">MY WORK</span>
+                                <i class="bi bi-arrow-right mobile-menu-arrow"></i>
+                            </a>
+                        </li>
+                        <li class="mobile-menu-item">
+                            <a href="http://localhost/contact" class="mobile-menu-link">
+                                <i class="bi bi-envelope mobile-menu-icon"></i>
+                                <span class="mobile-menu-text">Contact</span>
+                                <i class="bi bi-arrow-right mobile-menu-arrow"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<style>
+    .brand-logo-link {
+        text-decoration: none;
+        position: relative;
+        display: inline-block;
+        transition: transform 0.3s ease;
+    }
+    
+    .brand-logo-link:hover {
+        transform: scale(1.05);
+    }
+    
+    .brand-logo {
+        font-size: 2.5rem;
+        letter-spacing: 2px;
+        background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-alt) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    body.darkmode .brand-logo {
+        text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    @media (max-width: 991px) {
+        .navbar-brand-left {
+            display: none !important;
+        }
+        
+        .brand-logo {
+            font-size: 1.8rem;
+        }
+    }
+
+.lang-flag-btn {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: #f8f9fa;
+    border: 1.5px solid #adb5bd;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s;
+}
+.lang-flag-btn:hover, .lang-flag-btn:focus {
+    box-shadow: 0 4px 16px rgba(95,46,234,0.10);
+    background: #fff;
+}
+.lang-flag-img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #fff;
+    object-fit: cover;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    display: block;
+}
+
+/* Mobile Navbar Improvements */
+.mobile-brand-logo {
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-alt) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.mobile-brand-logo:hover {
+    transform: scale(1.05);
+    text-decoration: none;
+}
+
+.mobile-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.mobile-control-btn {
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: var(--color-card-bg);
+    border: 1.5px solid rgba(95, 46, 234, 0.2);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    transition: all 0.2s ease;
+}
+
+.mobile-control-btn:hover, .mobile-control-btn:focus {
+    box-shadow: 0 4px 16px rgba(95,46,234,0.15);
+    background: var(--color-card-bg);
+    border-color: var(--color-primary);
+    transform: translateY(-1px);
+}
+
+.mobile-control-btn .lang-flag-img {
+    width: 24px;
+    height: 24px;
+}
+
+.mobile-toggle-btn {
+    border: none;
+    background: none;
+    padding: 8px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    position: relative;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
+.mobile-toggle-btn:hover, .mobile-toggle-btn:focus {
+    background: rgba(95, 46, 234, 0.1);
+    box-shadow: 0 2px 12px rgba(95, 46, 234, 0.15);
+}
+
+.mobile-toggle-btn:focus {
+    box-shadow: 0 0 0 3px rgba(95, 46, 234, 0.2);
+}
+
+.hamburger-line {
+    width: 24px;
+    height: 3px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-alt));
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+}
+
+.mobile-toggle-btn[aria-expanded="true"] .hamburger-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.mobile-toggle-btn[aria-expanded="true"] .hamburger-line:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.mobile-toggle-btn[aria-expanded="true"] .hamburger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile Menu Improvements */
+@media (max-width: 991px) {
+    .custom-navbar {
+        border-radius: 0;
+        margin: 0;
+        max-width: 100%;
+        padding: 1rem 0;
+        background: var(--color-navbar-bg) !important;
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(95, 46, 234, 0.1);
+        position: relative;
+        z-index: 1000;
+    }
+    
+    .custom-navbar .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+    
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+/* Modern Mobile Menu Styling */
+.mobile-menu-container {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 1rem;
+    right: 1rem;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.navbar-collapse.show .mobile-menu-container {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
+}
+
+.mobile-menu-card {
+    background: var(--color-card-bg);
+    border-radius: 20px;
+    box-shadow: 0 16px 48px rgba(95, 46, 234, 0.12);
+    border: 1px solid rgba(95, 46, 234, 0.08);
+    backdrop-filter: blur(20px);
+    overflow: hidden;
+    position: relative;
+    margin: 0;
+}
+
+.mobile-menu-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-primary-alt), transparent);
+    opacity: 0.6;
+}
+
+.mobile-menu-header {
+    padding: 1.25rem 1.5rem 0.75rem 1.5rem;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(95, 46, 234, 0.03), rgba(162, 89, 201, 0.03));
+}
+
+.mobile-menu-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text);
+    opacity: 0.8;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.mobile-menu-divider {
+    width: 32px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-alt));
+    margin: 0.5rem auto 0 auto;
+    border-radius: 1px;
+    opacity: 0.8;
+}
+
+.mobile-menu-list {
+    list-style: none;
+    padding: 0.75rem 1rem 1.25rem 1rem;
+    margin: 0;
+}
+
+.mobile-menu-item {
+    margin-bottom: 0.375rem;
+}
+
+.mobile-menu-item:last-child {
+    margin-bottom: 0;
+}
+
+.mobile-menu-link {
+    display: flex;
+    align-items: center;
+    padding: 0.875rem 1rem;
+    text-decoration: none;
+    border-radius: 14px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    background: rgba(95, 46, 234, 0.02);
+    border: 1px solid rgba(95, 46, 234, 0.08);
+    margin: 0;
+}
+
+.mobile-menu-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.mobile-menu-link:hover::before {
+    left: 100%;
+}
+
+.mobile-menu-link:hover {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-alt));
+    color: white !important;
+    transform: translateX(6px);
+    box-shadow: 0 6px 20px rgba(95, 46, 234, 0.25);
+    border-color: transparent;
+    text-decoration: none;
+}
+
+.mobile-menu-link:active {
+    transform: translateX(3px) scale(0.98);
+}
+
+.mobile-menu-icon {
+    font-size: 1.1rem;
+    color: var(--color-primary);
+    margin-right: 0.875rem;
+    transition: all 0.3s ease;
+    min-width: 18px;
+    opacity: 0.8;
+}
+
+.mobile-menu-text {
+    flex: 1;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-text);
+    transition: color 0.3s ease;
+}
+
+.mobile-menu-arrow {
+    font-size: 0.8rem;
+    color: var(--color-text);
+    opacity: 0.4;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-link:hover .mobile-menu-icon {
+    color: white;
+    transform: scale(1.05);
+    opacity: 1;
+}
+
+.mobile-menu-link:hover .mobile-menu-text {
+    color: white;
+}
+
+.mobile-menu-link:hover .mobile-menu-arrow {
+    color: white;
+    opacity: 0.8;
+    transform: translateX(3px);
+}
+
+/* Staggered animation for menu items */
+.mobile-menu-item {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: slideInFromBottom 0.4s ease-out forwards;
+}
+
+.mobile-menu-item:nth-child(1) { animation-delay: 0.05s; }
+.mobile-menu-item:nth-child(2) { animation-delay: 0.1s; }
+.mobile-menu-item:nth-child(3) { animation-delay: 0.15s; }
+.mobile-menu-item:nth-child(4) { animation-delay: 0.2s; }
+.mobile-menu-item:nth-child(5) { animation-delay: 0.25s; }
+
+@keyframes slideInFromBottom {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Dark mode adjustments for mobile menu */
+body.darkmode .mobile-menu-card {
+    background: var(--color-card-bg);
+    border-color: rgba(162, 89, 201, 0.15);
+    box-shadow: 0 16px 48px rgba(162, 89, 201, 0.12);
+}
+
+body.darkmode .mobile-menu-card::before {
+    background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-primary-alt), transparent);
+}
+
+body.darkmode .mobile-menu-header {
+    background: linear-gradient(135deg, rgba(162, 89, 201, 0.03), rgba(95, 46, 234, 0.03));
+}
+
+body.darkmode .mobile-menu-divider {
+    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-alt));
+}
+
+body.darkmode .mobile-menu-link {
+    background: rgba(162, 89, 201, 0.02);
+    border-color: rgba(162, 89, 201, 0.08);
+}
+
+body.darkmode .mobile-menu-link:hover {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-alt));
+    box-shadow: 0 6px 20px rgba(162, 89, 201, 0.25);
+}
+
+/* Dark mode adjustments for mobile controls */
+body.darkmode .mobile-control-btn {
+    background: var(--color-card-bg);
+    border-color: rgba(162, 89, 201, 0.3);
+}
+
+body.darkmode .mobile-control-btn:hover, body.darkmode .mobile-control-btn:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 4px 16px rgba(162, 89, 201, 0.15);
+}
+
+body.darkmode .mobile-toggle-btn:hover, body.darkmode .mobile-toggle-btn:focus {
+    background: rgba(162, 89, 201, 0.1);
+    box-shadow: 0 2px 12px rgba(162, 89, 201, 0.15);
+}
+
+body.darkmode .mobile-toggle-btn:focus {
+    box-shadow: 0 0 0 3px rgba(162, 89, 201, 0.2);
+}
+
+body.darkmode .hamburger-line {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-alt));
+}
+</style>
+
+<script>
+    // Theme toggle logic
+    function setTheme(mode) {
+        if(mode === 'dark') {
+            document.body.classList.add('darkmode');
+            document.documentElement.setAttribute('data-bs-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+            document.getElementById('theme-icon').className = 'bi bi-sun';
+            document.getElementById('theme-icon-mobile').className = 'bi bi-sun';
+        } else {
+            document.body.classList.remove('darkmode');
+            document.documentElement.setAttribute('data-bs-theme', 'light');
+            localStorage.setItem('theme', 'light');
+            document.getElementById('theme-icon').className = 'bi bi-moon';
+            document.getElementById('theme-icon-mobile').className = 'bi bi-moon';
+        }
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const saved = localStorage.getItem('theme');
+        
+        // Als er geen opgeslagen thema is, controleer systeemvoorkeur
+        if (!saved) {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            setTheme(prefersDark ? 'dark' : 'light');
+        } else {
+            setTheme(saved === 'dark' ? 'dark' : 'light');
+        }
+        
+        document.getElementById('theme-toggle').onclick = function() {
+            setTheme(document.body.classList.contains('darkmode') ? 'light' : 'dark');
+        };
+        
+        // Mobile theme toggle
+        document.getElementById('theme-toggle-mobile').onclick = function() {
+            setTheme(document.body.classList.contains('darkmode') ? 'light' : 'dark');
+        };
+
+        // Bootstrap tooltip initialisatie
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+            new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    });
+</script><!-- loader here -->
+<div id="loading-div" class="d-none">
+    <div id="spinner-container">
+        <div id="loading-spinner"></div>
+    </div>
+</div>
+
+<div class="" id="content-div">
+        <!-- Header-->
+<header class="py-5">
+    <div class="container px-5 pb-5">
+        <div class="row gx-5 align-items-center">
+            <div class="col-xxl-5">
+                <!-- Header text content-->
+                <div class="text-center text-xxl-start">
+                    <div class="badge bg-gradient-primary-to-secondary text-white mb-4">
+                        <div class="text-uppercase">Premium Web Development &amp; Design</div>
+                    </div>
+                    <div class="fs-3 fw-light text-muted">Transform Your Digital Presence</div>
+                    <h1 class="display-3 fw-bolder mb-5">
+                        <span class="text-gradient d-inline">Eyobielk Goitom</span>
+                    </h1>
+                    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start mb-3 hero-buttons">
+                        <a class="btn hero-btn hero-btn-primary" href="http://localhost/resume">
+                            <i class="bi bi-file-earmark-person me-2"></i>
+                            <span>Resume</span>
+                            <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                        <a class="btn hero-btn hero-btn-secondary" href="http://localhost/projects">
+                            <i class="bi bi-folder2-open me-2"></i>
+                            <span>MY WORK</span>
+                            <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Technology Icons Section -->
+                    <div class="hero-tech-icons">
+                        <div class="tech-icons-container">
+                            <div class="tech-icon" title="Java">
+                                <img src="http://localhost/assets/java.png" alt="Java" class="tech-icon-img">
+                            </div>
+                            <div class="tech-icon" title="CSS3">
+                                <img src="http://localhost/assets/css3.png" alt="CSS3" class="tech-icon-img">
+                            </div>
+                            <div class="tech-icon" title="HTML5">
+                                <img src="http://localhost/assets/html5.png" alt="HTML5" class="tech-icon-img">
+                            </div>
+                            <div class="tech-icon" title="React">
+                                <img src="http://localhost/assets/react.png" alt="React" class="tech-icon-img">
+                            </div>
+                            <div class="tech-icon" title="Laravel">
+                                <img src="http://localhost/assets/Laravel.png" alt="Laravel" class="tech-icon-img">
+                            </div>
+                            <div class="tech-icon" title="Figma">
+                                <img src="http://localhost/assets/figma.png" alt="Figma" class="tech-icon-img">
+                            </div>
+                            <div class="tech-icon" title="Shopify">
+                                <img src="http://localhost/assets/shopify.png" alt="Shopify" class="tech-icon-img">
+                            </div>
+                            <div class="tech-icon" title="WordPress">
+                                <img src="http://localhost/assets/wordpress.png" alt="WordPress" class="tech-icon-img">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-7">
+                <div class="d-flex justify-content-center mt-5 mt-xxl-0">
+                    <div class="profile">
+                        <img class="profile-img" src="http://localhost/yobi.png" alt="Musabe Coucou" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<style>
+/* Hero Buttons Styling */
+.hero-buttons {
+    gap: 1rem !important;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 16px;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    overflow: hidden;
+    min-height: 56px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.hero-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.hero-btn:hover::before {
+    left: 100%;
+}
+
+.hero-btn-primary {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-alt) 100%);
+    color: white;
+    border: 2px solid transparent;
+}
+
+.hero-btn-primary:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 32px rgba(95, 46, 234, 0.3);
+    color: white;
+    text-decoration: none;
+}
+
+.hero-btn-primary:active {
+    transform: translateY(-1px) scale(1.01);
+}
+
+.hero-btn-secondary {
+    background: var(--color-card-bg);
+    color: var(--color-text);
+    border: 2px solid rgba(95, 46, 234, 0.2);
+    backdrop-filter: blur(20px);
+}
+
+.hero-btn-secondary:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 32px rgba(95, 46, 234, 0.2);
+    border-color: var(--color-primary);
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-alt) 100%);
+    color: white;
+    text-decoration: none;
+}
+
+.hero-btn-secondary:active {
+    transform: translateY(-1px) scale(1.01);
+}
+
+.hero-btn i {
+    transition: transform 0.3s ease;
+}
+
+.hero-btn:hover i:last-child {
+    transform: translateX(4px);
+}
+
+.hero-btn:hover i:first-child {
+    transform: scale(1.1);
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+    .hero-buttons {
+        flex-direction: column;
+        gap: 0.75rem !important;
+        width: 100%;
+    }
+    
+    .hero-btn {
+        width: 100%;
+        padding: 1.25rem 1.5rem;
+        font-size: 1rem;
+        min-height: 60px;
+        border-radius: 20px;
+    }
+    
+    .hero-btn i {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-btn {
+        padding: 1rem 1.25rem;
+        font-size: 0.95rem;
+        min-height: 56px;
+        border-radius: 16px;
+    }
+    
+    .hero-btn i {
+        font-size: 1rem;
+    }
+}
+
+/* Dark Mode Adjustments */
+body.darkmode .hero-btn-secondary {
+    background: var(--color-card-bg);
+    color: var(--color-text);
+    border-color: rgba(162, 89, 201, 0.3);
+}
+
+body.darkmode .hero-btn-secondary:hover {
+    border-color: var(--color-primary);
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-alt) 100%);
+    color: white;
+}
+
+body.darkmode .hero-btn-primary {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-alt) 100%);
+}
+
+body.darkmode .hero-btn-primary:hover {
+    box-shadow: 0 8px 32px rgba(162, 89, 201, 0.3);
+}
+
+/* Animation for button entrance */
+.hero-btn {
+    animation: slideInUp 0.6s ease-out;
+}
+
+.hero-btn:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Focus states for accessibility */
+.hero-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(95, 46, 234, 0.3);
+}
+
+body.darkmode .hero-btn:focus {
+    box-shadow: 0 0 0 3px rgba(162, 89, 201, 0.3);
+}
+
+/* Hero Technology Icons */
+.hero-tech-icons {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+@media (min-width: 1200px) {
+    .hero-tech-icons {
+        justify-content: flex-start;
+    }
+}
+
+.tech-icons-container {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 0;
+}
+
+.tech-icon {
+    width: 45px;
+    height: 45px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+    backdrop-filter: blur(10px);
+    flex-shrink: 0;
+}
+
+.tech-icon:hover {
+    transform: translateY(-3px) scale(1.1) rotate(360deg);
+    background-color: rgba(95, 46, 234, 0.2);
+    border-color: var(--color-primary);
+    box-shadow: 0 8px 24px rgba(95, 46, 234, 0.3);
+}
+
+.tech-icon-img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    transition: inherit;
+}
+
+/* Dark mode tech icons */
+body.darkmode .tech-icon {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.darkmode .tech-icon:hover {
+    background-color: rgba(162, 89, 201, 0.2);
+    border-color: var(--color-primary);
+    box-shadow: 0 8px 24px rgba(162, 89, 201, 0.3);
+}
+
+/* Light mode tech icons */
+body:not(.darkmode) .tech-icon {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+body:not(.darkmode) .tech-icon:hover {
+    background-color: rgba(95, 46, 234, 0.1);
+    border-color: var(--color-primary);
+    box-shadow: 0 8px 24px rgba(95, 46, 234, 0.2);
+}
+
+/* Tooltip styling for hero tech icons */
+.tech-icon::before {
+    content: attr(title);
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #212529;
+    color: #ffffff;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.tech-icon::after {
+    content: '';
+    position: absolute;
+    bottom: -32px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-bottom-color: #212529;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+}
+
+.tech-icon:hover::before,
+.tech-icon:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Light mode tooltips */
+body:not(.darkmode) .tech-icon::before {
+    background-color: #ffffff;
+    color: #212529;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+body:not(.darkmode) .tech-icon::after {
+    border-bottom-color: #ffffff;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .tech-icons-container {
+        gap: 0.5rem;
+        padding: 0.25rem 0;
+    }
+    
+    .tech-icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .tech-icon-img {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .tech-icons-container {
+        gap: 0.4rem;
+        padding: 0.25rem 0;
+    }
+    
+    .tech-icon {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .tech-icon-img {
+        width: 18px;
+        height: 18px;
+    }
+}
+</style>
+</div>
+
+<!-- Footer Modern -->
+<footer class="footer-modern py-5 mt-auto">
+    <div class="container text-center">
+        <div class="footer-social mb-4">
+            <a href="https://nl.linkedin.com/in/musabe-coucou" class="footer-icon mx-3" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i></a>
+            <a href="https://gitlab.com/musabecoucou" class="footer-icon mx-3" aria-label="GitLab" target="_blank" rel="noopener noreferrer">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M23.6004 9.5927l-.0337-.0862L20.3.9814a.851.851 0 00-.3362-.405.8748.8748 0 00-.9997.0539.8748.8748 0 00-.29.4399l-2.2055 6.748H7.5375l-2.2057-6.748a.8573.8573 0 00-.29-.4412.8748.8748 0 00-.9997-.0537.8585.8585 0 00-.3362.4049L.4332 9.5015l-.0325.0862a6.0657 6.0657 0 002.0119 7.0105l.0113.0087.03.0213 4.976 3.7264 2.462 1.8633 1.4995 1.1321a1.0085 1.0085 0 001.2197 0l1.4995-1.1321 2.4619-1.8633 5.006-3.7466.0125-.01a6.0682 6.0682 0 002.0094-7.003z"/>
+                </svg>
+            </a>
+            <a href="mailto:Eyobielgoitom10@gmail.com" class="footer-icon mx-3" aria-label="E-mail"><i class="bi bi-envelope"></i></a>
+        </div>
+        <div class="footer-divider mx-auto mb-4"></div>
+        <div class="footer-copyright small">
+            &copy; 2025 <span class="fw-bold">Eyobielk Goitom</span> &mdash; All rights reserved.
+        </div>
+    </div>
+</footer>
+
+<style>
+    .footer-modern {
+        background: transparent;
+        color: var(--color-text);
+        margin-bottom: 0;
+        padding-bottom: 32px;
+        padding-top: 32px;
+        position: relative;
+    }
+    
+    .footer-social {
+        display: flex;
+        justify-content: center;
+        gap: 32px;
+    }
+    
+    .footer-icon {
+        font-size: 1.8rem;
+        color: #fff;
+        background: linear-gradient(135deg, var(--color-primary), var(--color-primary-alt));
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 12px rgba(var(--color-primary-rgb, 95, 46, 234), 0.15);
+        transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    }
+    
+    .footer-icon:hover {
+        transform: translateY(-4px) scale(1.12);
+        box-shadow: 0 6px 24px rgba(var(--color-primary-rgb, 95, 46, 234), 0.25);
+        background: linear-gradient(135deg, var(--color-primary-alt), var(--color-primary));
+        color: #fff;
+        text-decoration: none;
+    }
+    
+    .footer-divider {
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--color-primary), var(--color-primary-alt));
+        border-radius: 2px;
+        opacity: 0.25;
+    }
+    
+    .footer-copyright {
+        color: var(--color-text);
+        opacity: 0.85;
+    }
+    
+    @media (max-width: 600px) {
+        .footer-social {
+            gap: 16px;
+        }
+        
+        .footer-icon {
+            font-size: 1.3rem;
+            width: 36px;
+            height: 36px;
+        }
+        
+        .footer-divider {
+            width: 40px;
+            height: 2px;
+        }
+    }
+</style>
+
+<script src="http://localhost/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
